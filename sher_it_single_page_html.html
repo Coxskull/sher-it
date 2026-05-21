@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHER IT Ride</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: black;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .hidden-page {
+      display: none;
+    }
+
+    @keyframes moveBike {
+      0% {
+        transform: translate(0px, 0px);
+      }
+
+      25% {
+        transform: translate(100px, -120px);
+      }
+
+      50% {
+        transform: translate(220px, -240px);
+      }
+
+      75% {
+        transform: translate(340px, -380px);
+      }
+
+      100% {
+        transform: translate(430px, -520px);
+      }
+    }
+
+    .bikeRide {
+      animation: moveBike 8s linear infinite;
+    }
+  </style>
+</head>
+
+<body class="text-white bg-black">
+
+  <!-- NAVBAR -->
+  <nav class="flex items-center justify-between px-8 py-5 border-b border-red-900 sticky top-0 bg-black z-50">
+
+    <div class="flex items-center gap-3">
+      <img 
+  src="C:\Users\Erwin\Downloads\sher\logo.png" 
+  alt="SHER IT Logo"
+  class="w-14 h-14 object-contain drop-shadow-[0_0_15px_rgba(239,68,68,0.6)]"
+/>
+
+      <div>
+        <h1 class="text-2xl font-black">SHER IT</h1>
+        <p class="text-xs text-gray-400">Your ride. Your way ❤️</p>
+      </div>
+    </div>
+
+    <button class="bg-red-600 hover:bg-red-700 transition px-5 py-2 rounded-xl font-semibold">
+      Book Ride
+    </button>
+  </nav>
+
+
+  <!-- HOME PAGE -->
+  <section id="homePage" class="min-h-screen grid lg:grid-cols-2 gap-10 px-8 lg:px-20 py-16 items-center">
+
+    <div>
+      <h2 class="text-5xl lg:text-7xl font-black leading-tight mb-6">
+        Ride with
+        <span class="block text-red-500">SHER IT ❤️</span>
+      </h2>
+
+      <p class="text-gray-400 text-lg mb-10 max-w-xl">
+        Personalized ride-booking app just for you.
+      </p>
+
+      <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 space-y-5 shadow-2xl max-w-xl">
+
+        <div>
+          <label class="text-sm text-gray-400 block mb-2">Pickup Location</label>
+          <input
+            type="text"
+            placeholder="Your location"
+            class="w-full bg-black border border-zinc-700 rounded-2xl px-5 py-4 outline-none focus:border-red-500"
+          >
+        </div>
+
+        <div>
+          <label class="text-sm text-gray-400 block mb-2">Destination</label>
+          <input
+            type="text"
+            placeholder="Where do you want to go?"
+            class="w-full bg-black border border-zinc-700 rounded-2xl px-5 py-4 outline-none focus:border-red-500"
+          >
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+
+          <div class="bg-black border border-zinc-700 rounded-2xl p-4">
+            <p class="text-gray-400 text-sm">Estimated Fare</p>
+            <h3 class="text-2xl font-bold">₱89</h3>
+          </div>
+
+          <div class="bg-black border border-zinc-700 rounded-2xl p-4">
+            <p class="text-gray-400 text-sm">ETA</p>
+            <h3 class="text-2xl font-bold">5 mins</h3>
+          </div>
+        </div>
+
+        <button
+          onclick="findRider()"
+          class="w-full bg-red-600 hover:bg-red-700 transition py-4 rounded-2xl font-bold text-lg shadow-lg shadow-red-500/40"
+        >
+          Get a Rider 🏍️
+        </button>
+      </div>
+    </div>
+
+
+    <!-- RIGHT SIDE PHONE -->
+    <div class="flex justify-center relative">
+
+      <div class="absolute inset-0 bg-red-600 blur-[120px] opacity-20"></div>
+
+      <div class="relative bg-zinc-900 border border-zinc-800 rounded-[40px] p-5 shadow-2xl w-[340px]">
+
+        <div class="bg-black rounded-[30px] overflow-hidden border border-zinc-800 h-[640px] flex flex-col items-center justify-center text-center px-6">
+
+          <div class="w-40 h-40 rounded-full bg-red-600 flex items-center justify-center animate-pulse shadow-2xl shadow-red-500/40 p-5">
+  <img 
+    src="C:\Users\Erwin\Downloads\sher\logo.png" 
+    alt="SHER IT Logo"
+    class="w-full h-full object-contain"
+  >
+</div>
+
+          <h3 class="text-3xl font-black mt-8">Ready to Ride?</h3>
+
+          <p class="text-gray-400 mt-3 max-w-xs">
+            Tap the button and SHER IT will search for your rider.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SEARCHING PAGE -->
+  <section id="searchPage" class="hidden-page min-h-screen flex items-center justify-center px-6 py-20 bg-gradient-to-b from-black to-zinc-950">
+
+    <div class="max-w-2xl w-full bg-zinc-900 border border-zinc-800 rounded-[40px] p-10 text-center shadow-2xl">
+
+      <div class="w-32 h-32 mx-auto rounded-full border-[10px] border-red-600 border-t-transparent animate-spin"></div>
+
+      <h2 class="text-5xl font-black mt-10">Searching for Rider...</h2>
+
+      <p class="text-gray-400 mt-4 text-lg">
+        Looking for the best rider ❤️
+      </p>
+
+      <div class="mt-10 bg-black rounded-3xl p-6 border border-zinc-800">
+
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-gray-400">Status</span>
+          <span class="text-red-500 font-bold animate-pulse">Finding Rider...</span>
+        </div>
+
+        <div class="w-full h-4 bg-zinc-800 rounded-full overflow-hidden">
+          <div class="h-full w-3/4 bg-red-600 rounded-full animate-pulse"></div>
+        </div>
+      </div>
+
+      <p class="mt-8 text-gray-500">Please wait 5 seconds...</p>
+    </div>
+  </section>
+
+
+  <!-- FOUND PAGE -->
+  <section id="foundPage" class="hidden-page min-h-screen bg-black px-6 lg:px-20 py-20">
+
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
+
+      <!-- LEFT -->
+      <div>
+
+        <div class="inline-flex items-center gap-2 bg-green-500/20 border border-green-500/30 px-5 py-2 rounded-full text-green-400 font-semibold mb-6">
+          Rider Found ✅
+        </div>
+
+        <h2 class="text-5xl lg:text-6xl font-black leading-tight">
+          Your Rider is
+          <span class="block text-red-500">Erwin 🏍️</span>
+        </h2>
+
+        <p class="text-gray-400 text-lg mt-5 max-w-lg">
+          Your rider is on the way.
+        </p>
+
+        <div class="mt-10 bg-zinc-900 border border-zinc-800 rounded-3xl p-6 flex items-center gap-5">
+
+          <img
+            src="C:\Users\Erwin\Downloads\sher\erwin.png"
+            class="w-24 h-24 rounded-2xl object-cover border-2 border-red-500"
+          >
+
+          <div>
+            <h3 class="text-3xl font-black">Erwin</h3>
+            <p class="text-gray-400 mt-1">Motorcycle Rider</p>
+
+            <div class="flex items-center gap-2 mt-3">
+              <span class="text-yellow-400">⭐ 5.0</span>
+              <span class="text-gray-500">•</span>
+              <span class="text-gray-300">Honda PCX 160</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- MAP -->
+      <div class="relative bg-zinc-900 border border-zinc-800 rounded-[40px] overflow-hidden shadow-2xl h-[700px]">
+
+        <!-- Roads -->
+        <div class="absolute inset-0">
+
+          <div class="absolute top-20 left-10 right-10 h-3 bg-zinc-700 rounded-full"></div>
+          <div class="absolute top-52 left-20 right-20 h-3 bg-zinc-700 rounded-full"></div>
+          <div class="absolute top-96 left-8 right-8 h-3 bg-zinc-700 rounded-full"></div>
+
+          <div class="absolute left-28 top-10 bottom-10 w-3 bg-zinc-700 rounded-full"></div>
+          <div class="absolute right-24 top-20 bottom-20 w-3 bg-zinc-700 rounded-full"></div>
+        </div>
+
+
+        <!-- Route -->
+        <svg class="absolute inset-0 w-full h-full">
+          <path
+            d="M80 620 C200 500, 260 450, 320 350 S420 180, 500 120"
+            stroke="#ef4444"
+            stroke-width="8"
+            fill="none"
+            stroke-dasharray="18 18"
+          />
+        </svg>
+
+
+        <!-- Destination -->
+        <div class="absolute top-24 right-24 text-5xl animate-bounce">
+          📍
+        </div>
+
+
+        <!-- Motorcycle -->
+        <div class="absolute bottom-16 left-10 text-6xl bikeRide">
+          🏍️💑
+        </div>
+
+
+        <!-- Bottom Card -->
+        <div class="absolute bottom-0 left-0 right-0 bg-black/80 backdrop-blur-md p-6 border-t border-zinc-800">
+
+          <div class="flex justify-between items-center">
+
+            <div>
+              <p class="text-gray-400 text-sm">Current Ride</p>
+              <h3 class="text-2xl font-black">Heading to Destination</h3>
+            </div>
+
+            <div class="text-right">
+              <p class="text-gray-400 text-sm">Arrival</p>
+              <h3 class="text-2xl font-black text-red-500">3 mins</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="border-t border-zinc-800 py-8 text-center text-gray-500 bg-black">
+    © 2026 SHER IT • Built with ❤️ for her.
+  </footer>
+
+
+  <script>
+
+    function findRider() {
+
+      document.getElementById('homePage').style.display = 'none';
+
+      document.getElementById('searchPage').style.display = 'flex';
+
+
+      setTimeout(() => {
+
+        document.getElementById('searchPage').style.display = 'none';
+
+        document.getElementById('foundPage').style.display = 'block';
+
+      }, 5000);
+    }
+
+  </script>
+
+</body>
+</html>
